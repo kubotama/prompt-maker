@@ -5,7 +5,7 @@ function App() {
   const [text, setText] = useState("");
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
+    <div className="flex flex-col gap-4 p-4">
       <textarea
         cols={80}
         rows={10}
@@ -14,10 +14,26 @@ function App() {
         className="border p-2"
       ></textarea>
       <button
-        onClick={() => setText("クリックして設定された文字列")}
+        onClick={() => setText("コミットしてください")}
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
-        文字列を設定
+        コミット
+      </button>
+      <button
+        onClick={() =>
+          setText(
+            "コミットはしてください。プッシュとプルリクエストの作成は、まだしないでください",
+          )
+        }
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        コミットのみ
+      </button>
+      <button
+        onClick={() => setText("新しいissueを作成してください")}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        issueの作成
       </button>
     </div>
   );
