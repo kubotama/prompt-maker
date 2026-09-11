@@ -41,6 +41,17 @@ function App() {
     return result.join("\n")
   }
 
+  const generateTestCase = () => {
+    return `type TestCase = {
+    errorName: string
+    status: number
+  }
+
+  const testCases: TestCase[] = [
+  {
+  }]`
+  }
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <textarea
@@ -63,6 +74,14 @@ function App() {
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         テスト: プルリクエスト → プログラム
+      </button>
+      <button
+        onClick={() => {
+          setText(generateTestCase)
+        }}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        テストケースの型定義
       </button>
     </div>
   )
