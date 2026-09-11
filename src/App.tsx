@@ -18,6 +18,29 @@ function App() {
     return `### ${matches[0]}\n${matches[1]}`
   }
 
+  const pullrequestToProgram = () => {
+    const lines = text.split("\n")
+    const result: string[] = []
+
+    lines.forEach((line) => {
+      const title = line.match(/^###\s*(.*)/)
+      if (title) {
+        if (result.length > 0) {
+          result.push("})")
+        }
+        result.push(`describe("${title[1]}", () =>{`)
+      }
+
+      const description = line.match(/\[\s*\]\s*(.*)/)
+      if (description) {
+        result.push(`it("${description[1]}", () => {})`)
+      }
+    })
+    result.push(`})`)
+
+    return result.join("\n")
+  }
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <textarea
@@ -32,6 +55,14 @@ function App() {
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         コミットコマンド → プルリクエスト
+      </button>
+      <button
+        onClick={() => {
+          setText(pullrequestToProgram)
+        }}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        テスト: プルリクエスト → プログラム
       </button>
     </div>
   )
