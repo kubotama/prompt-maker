@@ -16,7 +16,7 @@ function App() {
       matches.push(match[1])
     }
 
-    return `### ${matches[0]}\n${matches[1]}`
+    return `#### ${matches[0]}\n${matches[1]}`
   }
 
   const pullrequestToProgram = () => {
