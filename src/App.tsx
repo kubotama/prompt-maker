@@ -34,7 +34,7 @@ function App() {
 
       const description = line.match(/\[\s*\]\s*(.*)/)
       if (description) {
-        result.push(`it("${description[1]}", () => {})`)
+        result.push(`it("${description[1]}", async () => {})`)
       }
     })
     result.push(`})`)
