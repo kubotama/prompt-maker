@@ -58,6 +58,14 @@ function App() {
     textareaRef.current?.focus()
   }
 
+  const transferTestcase = () => {
+    const description = text.match(/\s*it\('(.*)'/)
+    if (description) {
+      return `{ errorName: '${description[1]}', }`
+    }
+    return ""
+  }
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <textarea
@@ -94,6 +102,15 @@ function App() {
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         テストケースの型定義
+      </button>
+      <button
+        onClick={() => {
+          const newText = transferTestcase()
+          setTextFocus(newText)
+        }}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        テストデータに変換
       </button>
     </div>
   )
