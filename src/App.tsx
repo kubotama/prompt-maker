@@ -19,7 +19,7 @@ function App() {
     return `#### ${matches[0]}\n${matches[1]}`
   }
 
-  const pullrequestToProgram = () => {
+  const pullrequestToProgram_todo = () => {
     const lines = text.split("\n")
     const result: string[] = []
 
@@ -40,6 +40,33 @@ function App() {
     result.push(`})`)
 
     return result.join("\n")
+  }
+
+  const pullrequestToProgram_layers = () => {
+    const lines = text.split("\n")
+    let result: string = ""
+    let level: number = 0
+
+    lines.forEach((line) => {
+      const level1 = line.match(/^###\s*(.*)/)
+      const level2 = line.match(/^-\s+(.*)/)
+      const level3 = line.match(/^\s+-\s+(.*)/)
+
+      if (level1) {
+        result = result + `describe('${level1[1]}', () =>{\n`
+        level = 1
+      } else if (level2) {
+        result = result + `describe('${level2[1]}', () => {\n`
+        level = 2
+      } else if (level3) {
+        result = result + `it('${level3[1]}', async () => {})\n`
+      } else if (level > 1) {
+        result = result + " })\n".repeat(level - 1)
+        level = 0
+      }
+    })
+
+    return result
   }
 
   const generateTestCase = () => {
@@ -87,12 +114,21 @@ function App() {
       </button>
       <button
         onClick={() => {
-          const newText = pullrequestToProgram()
+          const newText = pullrequestToProgram_todo()
           setTextFocus(newText)
         }}
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
-        テスト: プルリクエスト → プログラム
+        テスト: プルリクエスト → プログラム (- [ ])
+      </button>
+      <button
+        onClick={() => {
+          const newText = pullrequestToProgram_layers()
+          setTextFocus(newText)
+        }}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        テスト: プルリクエスト → プログラム (2階層)
       </button>
       <button
         onClick={() => {
