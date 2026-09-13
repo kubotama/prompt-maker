@@ -93,6 +93,13 @@ function App() {
     return ""
   }
 
+  const correctAndIncorrect = () => {
+    return `describe('正常系', () => {})
+
+describe('異常系', () => {})
+`
+  }
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <textarea
@@ -129,6 +136,15 @@ function App() {
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         テスト: プルリクエスト → プログラム (2階層)
+      </button>
+      <button
+        onClick={() => {
+          const newText = correctAndIncorrect()
+          setTextFocus(newText)
+        }}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        正常系と異常系
       </button>
       <button
         onClick={() => {
