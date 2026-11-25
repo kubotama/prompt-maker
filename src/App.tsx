@@ -96,8 +96,20 @@ function App() {
   const correctAndIncorrect = () => {
     return `describe('正常系', () => {})
 
+
 describe('異常系', () => {})
 `
+  }
+
+  const generateOutput = () => {
+    const lines = text.split("\n")
+    let result: string = "rm -f /tmp/output\ntouch /tmp/output\n"
+
+    lines.forEach((line) => {
+      result += line + " &>> /tmp/output\n"
+    })
+
+    return result
   }
 
   return (
@@ -163,6 +175,15 @@ describe('異常系', () => {})
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         テストデータに変換
+      </button>
+
+      <button
+        onClick={() => {
+          const newText = generateOutput()
+          setTextFocus(newText)
+        }}
+      >
+        ログに出力
       </button>
     </div>
   )
